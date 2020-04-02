@@ -9,10 +9,9 @@ import android.content.Context
  * time：2020/3/30 22:34
  * description：
  */
-class BaseApplication: Application() {
-    companion object{
-        private var currentApplication:Context? = null
-        fun currentApplication() = currentApplication!!
+class BaseApplication : Application() {
+    companion object {
+         lateinit var currentApplication: Context
     }
 
     override fun onCreate() {

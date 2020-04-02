@@ -14,15 +14,13 @@ import com.example.lesson.entity.Lesson
 
 
 class LessonActivity : AppCompatActivity(), BaseView<LessonPresenter>, Toolbar.OnMenuItemClickListener {
-    private val lessonPresenter = LessonPresenter(this)
+    private val lessonPresenter by lazy { LessonPresenter(this) }
 
-    override fun getPresenter(): LessonPresenter {
+    override fun getPresenter(): LessonPresenter = lessonPresenter
 
-        return lessonPresenter
-    }
-
-    private val lessonAdapter = LessonAdapter()
+    private val lessonAdapter by lazy { LessonAdapter() }
     private var refreshLayout: SwipeRefreshLayout? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lesson)
@@ -33,9 +31,12 @@ class LessonActivity : AppCompatActivity(), BaseView<LessonPresenter>, Toolbar.O
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = lessonAdapter
         recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL))
+
         refreshLayout = findViewById(R.id.swipe_refresh_layout)
-        refreshLayout?.setOnRefreshListener(SwipeRefreshLayout.OnRefreshListener { getPresenter().fetchData() })
-        refreshLayout?.setRefreshing(true)
+        refreshLayout?.apply {
+            setOnRefreshListener { getPresenter().fetchData() }
+            isRefreshing = true
+        }
         getPresenter().fetchData()
     }
 

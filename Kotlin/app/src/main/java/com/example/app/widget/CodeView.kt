@@ -9,7 +9,7 @@ import android.util.TypedValue
 import android.view.Gravity
 import androidx.appcompat.widget.AppCompatTextView
 import com.example.app.R
-import com.example.core.utils.Utils
+import com.example.core.utils.dp2px
 import java.util.*
 
 /**
@@ -20,7 +20,12 @@ import java.util.*
  */
 class CodeView(context:Context,attr: AttributeSet?) : AppCompatTextView(context,attr) {
     constructor(context: Context):this(context,null)
-    private  val paint = Paint()
+    private  val paint = Paint().apply {
+        isAntiAlias = true
+        style = Paint.Style.STROKE
+        color = getContext().getColor(R.color.colorAccent)
+        strokeWidth = 6f.dp2px()
+    }
 
     private val codeList = arrayOf( "kotlin",
             "android",
@@ -35,11 +40,6 @@ class CodeView(context:Context,attr: AttributeSet?) : AppCompatTextView(context,
         gravity = Gravity.CENTER
         setBackgroundColor(getContext().getColor(R.color.colorPrimary))
         setTextColor(Color.WHITE)
-
-        paint.isAntiAlias = true
-        paint.style = Paint.Style.STROKE
-        paint.color = getContext().getColor(R.color.colorAccent)
-        paint.strokeWidth = Utils.dp2px(6f)
         updateCode()
     }
 
@@ -48,6 +48,7 @@ class CodeView(context:Context,attr: AttributeSet?) : AppCompatTextView(context,
         canvas!!.drawLine(0f, height.toFloat(), width.toFloat(), 0f, paint);
         super.onDraw(canvas)
     }
+
     fun updateCode() {
         val random = Random().nextInt(codeList.size)
         val code: String = codeList[random]

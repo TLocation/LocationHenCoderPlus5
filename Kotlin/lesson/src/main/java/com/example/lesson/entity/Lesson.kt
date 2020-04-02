@@ -6,7 +6,7 @@ package com.example.lesson.entity
  * time：2020/3/30 22:11
  * description：
  */
-data class Lesson(var date: String?, var content: String?,var state:State?) {
+data class Lesson(var date: String?, var content: String?, var state: State?) {
 
     enum class State {
         PLAYBACK {

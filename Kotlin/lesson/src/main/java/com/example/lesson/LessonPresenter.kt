@@ -2,7 +2,7 @@ package com.example.lesson
 
 import com.example.core.http.EntityCallback
 import com.example.core.http.HttpClient
-import com.example.core.utils.Utils.toast
+import com.example.core.utils.toast
 import com.example.lesson.entity.Lesson
 import com.google.gson.reflect.TypeToken
 import kotlin.collections.ArrayList

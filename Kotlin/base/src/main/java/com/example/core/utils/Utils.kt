@@ -1,18 +1,23 @@
 package com.example.core.utils
 
+import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.util.TypedValue
 import android.widget.Toast
 import com.example.core.BaseApplication
 
-object Utils {
-    private val displayMetrics = Resources.getSystem().displayMetrics
-    fun dp2px(dp: Float): Float {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics)
-    }
+private val displayMetrics = Resources.getSystem().displayMetrics
+fun Float.dp2px(): Float {
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, displayMetrics)
+}
 
-    @JvmOverloads
-    fun toast(string: String?, duration: Int = Toast.LENGTH_SHORT) {
-        Toast.makeText(BaseApplication.currentApplication(), string, duration).show()
-    }
+fun Int.dp2px(): Int {
+    return this.toFloat().dp2px().toInt()
+}
+
+
+@JvmOverloads
+fun toast(string: String?, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(BaseApplication.currentApplication, string, duration).show()
 }

@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
  * time：2020/3/30 22:37
  * description：
  */
-abstract  class BaseViewHolder(itemView:View):RecyclerView.ViewHolder(itemView) {
+abstract class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private  val viewHashMap = HashMap<Int,View>()
+    private val viewHashMap = HashMap<Int, View>()
 
-    protected open fun <T : View> getView(@IdRes id: Int): T? {
-        var view:View? = viewHashMap[id]
+    protected fun <T : View> getView(@IdRes id: Int): T? {
+        var view: View? = viewHashMap[id]
         if (view == null) {
             view = itemView.findViewById(id)
             viewHashMap[id] = view
@@ -24,7 +24,7 @@ abstract  class BaseViewHolder(itemView:View):RecyclerView.ViewHolder(itemView) 
         return view as? T
     }
 
-    protected open fun setText(@IdRes id: Int, text: String?) {
+    protected  fun setText(@IdRes id: Int, text: String?) {
         (getView<TextView>(id))?.text = text
     }
 

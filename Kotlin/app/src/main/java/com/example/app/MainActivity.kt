@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.app.entity.User
 import com.example.app.widget.CodeView
 import com.example.core.utils.CacheUtils
-import com.example.core.utils.Utils
+import com.example.core.utils.toast
 import com.example.lesson.LessonActivity
 
 /**
@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main);
         et_username.setText(CacheUtils.get(usernameKey))
         et_password.setText(CacheUtils.get(passwordKey))
+        //CacheUtils["s",2] = "2"
         findViewById<Button>(R.id.btn_login).setOnClickListener(this)
         findViewById<CodeView>(R.id.code_view).setOnClickListener(this)
 
@@ -38,12 +39,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-       if(v is CodeView){
-           v.updateCode()
-       }else if(v is Button){
-           login()
-       }
+        v?.let {
+            when(it){
+                is CodeView -> it.updateCode()
+                is Button -> login()
+            }
+        }
+
     }
+
 
     private  fun login(){
         val userName = et_username.text.toString()
@@ -58,12 +62,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
     private fun verify(user: User): Boolean {
-        if (user.username != null && user.username!!.length < 4) {
-            Utils.toast("用户名不合法")
+        if (user.username?.length?:0<4) {
+            toast("用户名不合法")
             return false
         }
-        if (user.password != null && user.password!!.length < 4) {
-            Utils.toast("密码不合法")
+        if (user.password?.length?:0<4) {
+            toast("密码不合法")
             return false
         }
         return true

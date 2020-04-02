@@ -7,5 +7,5 @@ package com.example.core
  * description：
  */
 interface BaseView<T> {
-    fun getPresenter():T
+    fun getPresenter(): T
 }
